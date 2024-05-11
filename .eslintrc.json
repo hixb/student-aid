@@ -1,6 +1,6 @@
 {
   "plugins": ["react", "simple-import-sort"],
-  "extends": ["plugin:react/recommended", "@antfu"],
+  "extends": ["plugin:react/recommended", "@antfu", "next/core-web-vitals"],
   "rules": {
     "simple-import-sort/imports": [
       "error",
@@ -54,7 +54,7 @@
       "html": true
     }],
 
-    "no-irregular-whitespace": "warn",
-    "vue/no-irregular-whitespace": "warn"
+    "no-irregular-whitespace": "off",
+    "vue/no-irregular-whitespace": "off"
   }
 }
