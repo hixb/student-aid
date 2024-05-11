@@ -1,0 +1,31 @@
+::selection {
+  color: #fff;
+  background: var(--my-special-color);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 3px;
+  background-color: var(--my-scrollbar-color);
+}
+
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--my-scrollbar-bg);
+  border-radius: 4px;
+
+  &:hover {
+    background-color: var(--my-scrollbar-bg-hover);
+  }
+}
+
+body {
+  background-color: var(--my-bg-base-color);
+  color: var(--my-text-base-color);
+  overflow-x: hidden;
+}
