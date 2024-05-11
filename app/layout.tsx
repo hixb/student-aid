@@ -7,7 +7,7 @@ import '~/styles/tailwind.scss'
 import { Providers } from '~/app/providers'
 import Header from '~/components/Header'
 
-const barlow = Barlow({ weight: '500', subsets: ['latin'] })
+const barlow = Barlow({ weight: '100', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
