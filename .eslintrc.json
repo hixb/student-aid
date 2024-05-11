@@ -52,6 +52,9 @@
     "react/self-closing-comp": ["error", {
       "component": true,
       "html": true
-    }]
+    }],
+
+    "no-irregular-whitespace": "warn",
+    "vue/no-irregular-whitespace": "warn"
   }
 }
