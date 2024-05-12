@@ -101,7 +101,7 @@ export default function Home() {
               />
             </div>
             <button className={clsx('w-full h-50 bg-[var(--my-special-color)] text-white rounded-xl mt-15')} onClick={inquireResult}>
-              查询
+              {inquireState ? '重新查询' : '查询'}
             </button>
           </div>
         </div>
