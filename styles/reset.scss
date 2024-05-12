@@ -28,6 +28,13 @@ body {
   background-color: var(--my-bg-base-color);
   color: var(--my-text-base-color);
   overflow-x: hidden;
+  @apply text-base;
+}
+
+@media only screen and (max-width: 767px) {
+  body {
+    @apply text-xs;
+  }
 }
 
 svg * {
