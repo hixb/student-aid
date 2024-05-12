@@ -113,13 +113,13 @@ const UserList: React.FC = () => {
       <motion.div animate={controls}>
         {users.map((user, index) => (
           <li key={index} className="flex" style={{ height: SCROLL_HEIGHT }}>
-            <span className={clsx('flex items-center justify-center w-1/3 h-full')}>
+            <span className={clsx('inline-block text-center w-1/3 h-full truncate px-10 overflow-hidden')} style={{ lineHeight: `${SCROLL_HEIGHT}px` }}>
               {maskChineseName(user.name)}
             </span>
-            <span className={clsx('flex items-center justify-center w-1/3 h-full border-x border-[var(--my-border-color)]')}>
+            <span className={clsx('inline-block text-center w-1/3 h-full border-x border-[var(--my-border-color)] truncate px-10 overflow-hidden')} style={{ lineHeight: `${SCROLL_HEIGHT}px` }}>
               {user.phone.substring(0, 3)}***{user.phone.substring(6)}
             </span>
-            <span className={clsx('flex items-center justify-center w-1/3 h-full')}>
+            <span className={clsx('inline-block text-center w-1/3 h-full truncate px-10 overflow-hidden')} style={{ lineHeight: `${SCROLL_HEIGHT}px` }}>
               {user.status}
             </span>
           </li>
