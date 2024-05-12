@@ -16,14 +16,19 @@ const UserList: React.FC = () => {
   const ulRef = useRef<HTMLUListElement | null>(null)
   const controls = useAnimation()
 
+  const auditStatus = ['审核通过', '审核未通过']
+
+  const RANDOM_USER_COUNT = 1000
+  const SCROLL_HEIGHT = 50
+
   useEffect(() => {
     // 生成 100 条数据
     const data: User[] = []
-    for (let i = 1; i <= 1000; i++) {
+    for (let i = 1; i <= RANDOM_USER_COUNT; i++) {
       data.push({
         name: generateChineseName(),
         phone: generateMobileNumber(),
-        status: `审核状态${i % 3}`,
+        status: auditStatus[Math.floor(Math.random() * 2)],
       })
     }
     setUsers(data)
@@ -33,16 +38,15 @@ const UserList: React.FC = () => {
     const scrollDown = () => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % users.length)
       controls.start({
-        y: `-${(currentIndex + 1) * 50}px`,
+        y: `-${(currentIndex + 1) * SCROLL_HEIGHT}px`,
         transition: { duration: 0.5, ease: 'easeInOut' },
-      })
+      }).then()
     }
 
     timerRef.current = setInterval(scrollDown, 2000)
 
     return () => {
-      if (timerRef.current)
-        clearInterval(timerRef.current)
+      timerRef.current && clearInterval(timerRef.current)
     }
   }, [users, currentIndex, controls])
 
@@ -92,20 +96,28 @@ const UserList: React.FC = () => {
     return prefix
   }
 
+  function maskChineseName(name: string): string {
+    return name.length === 2
+      ? `${name.charAt(0)}*`
+      : name.length === 3
+        ? `${name.charAt(0)}*${name.charAt(2)}`
+        : name
+  }
+
   return (
     <ul
       className={clsx('border-x border-b border-[var(--my-border-color)] rounded-b overflow-hidden relative')}
       ref={ulRef}
-      style={{ maxHeight: '500px' }}
+      style={{ maxHeight: SCROLL_HEIGHT * 10 }}
     >
       <motion.div animate={controls}>
         {users.map((user, index) => (
-          <li key={index} className="h-50 flex">
+          <li key={index} className="flex" style={{ height: SCROLL_HEIGHT }}>
             <span className={clsx('flex items-center justify-center w-1/3 h-full')}>
-              {user.name}
+              {maskChineseName(user.name)}
             </span>
             <span className={clsx('flex items-center justify-center w-1/3 h-full border-x border-[var(--my-border-color)]')}>
-              {user.phone}
+              {user.phone.substring(0, 3)}***{user.phone.substring(6)}
             </span>
             <span className={clsx('flex items-center justify-center w-1/3 h-full')}>
               {user.status}
