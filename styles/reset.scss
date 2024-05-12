@@ -29,3 +29,7 @@ body {
   color: var(--my-text-base-color);
   overflow-x: hidden;
 }
+
+svg * {
+  stroke: var(--my-svg-color);
+}

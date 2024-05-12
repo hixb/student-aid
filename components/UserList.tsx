@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 import clsx from 'clsx'
 import { motion, useAnimation } from 'framer-motion'
@@ -10,37 +10,31 @@ interface User {
 }
 
 const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const ulRef = useRef<HTMLUListElement | null>(null)
-  const controls = useAnimation()
-
-  const auditStatus = ['审核通过', '审核未通过']
-
-  const RANDOM_USER_COUNT = 1000
+  const RANDOM_USER_COUNT = 11
   const SCROLL_HEIGHT = 50
 
-  useEffect(() => {
-    // 生成 100 条数据
-    const data: User[] = []
-    for (let i = 1; i <= RANDOM_USER_COUNT; i++) {
-      data.push({
-        name: generateChineseName(),
-        phone: generateMobileNumber(),
-        status: auditStatus[Math.floor(Math.random() * 2)],
-      })
-    }
-    setUsers(data)
+  const [users, setUsers] = React.useState<User[]>([])
+  const [currentIndex, setCurrentIndex] = React.useState(0)
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null)
+  const controls = useAnimation()
+
+  const [tagVisible, setTagVisible] = React.useState(true)
+
+  React.useEffect(() => {
+    document.addEventListener('visibilitychange', () => setTagVisible(document.visibilityState === 'visible'))
+
+    setUsers(Array.from({ length: RANDOM_USER_COUNT }, () => setData()))
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
+    if (!tagVisible)
+      return
+
     const scrollDown = () => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % users.length)
-      controls.start({
-        y: `-${(currentIndex + 1) * SCROLL_HEIGHT}px`,
-        transition: { duration: 0.5, ease: 'easeInOut' },
-      }).then()
+
+      controls.start({ y: `-${(currentIndex + 1) * SCROLL_HEIGHT}px`, transition: { duration: 0.5, ease: 'easeInOut' } })
+        .then(() => setUsers(prevUsers => [...prevUsers, setData()]))
     }
 
     timerRef.current = setInterval(scrollDown, 2000)
@@ -48,7 +42,18 @@ const UserList: React.FC = () => {
     return () => {
       timerRef.current && clearInterval(timerRef.current)
     }
-  }, [users, currentIndex, controls])
+  }, [users, currentIndex, controls, tagVisible])
+
+  React.useEffect(() => {
+  }, [])
+
+  function setData(): User {
+    return {
+      name: generateChineseName(),
+      phone: generateMobileNumber(),
+      status: Math.floor(Math.random() * 10) < 9 ? '审核通过' : '审核未通过',
+    }
+  }
 
   function generateChineseName() {
     const familyNames = [
@@ -105,9 +110,9 @@ const UserList: React.FC = () => {
   }
 
   return (
+    users.length > 0 && (
     <ul
       className={clsx('border-x border-b border-[var(--my-border-color)] rounded-b overflow-hidden relative')}
-      ref={ulRef}
       style={{ maxHeight: SCROLL_HEIGHT * 10 }}
     >
       <motion.div animate={controls}>
@@ -126,6 +131,7 @@ const UserList: React.FC = () => {
         ))}
       </motion.div>
     </ul>
+    )
   )
 }
 
