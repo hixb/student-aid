@@ -1,12 +1,21 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import clsx from 'clsx'
 
 import UserList from '~/components/UserList'
 
 export default function Home() {
+  const [timer, setTimer] = useState('')
+
+  React.useEffect(() => {
+    setInterval(() => {
+      const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'long' }
+      setTimer(new Date().toLocaleString('zh-CN', options))
+    }, 1000)
+  }, [])
+
   return (
     <main className={clsx('w-4/5 mx-auto mt-20')}>
       <div className={clsx('bg-[var(--my-box-bg)] py-10 rounded flex justify-around items-center shadow-[0_5px_35px_rgba(0,0,0,.07)] px-10')}>
@@ -22,7 +31,7 @@ export default function Home() {
             199
           </span>
         </div>
-        <span>2024-05-11 21:44:57　星期六</span>
+        <span>{timer}</span>
       </div>
       <div className={clsx('w-3/4 mx-auto mt-30')}>
         <div className={clsx('flex justify-around items-center border border-[var(--my-border-color)] h-50 rounded-t')}>
