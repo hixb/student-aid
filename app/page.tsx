@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import clsx from 'clsx'
@@ -12,6 +12,15 @@ export default function Home() {
 
   const [name, setName] = React.useState('')
   const [phone, setPhone] = React.useState('')
+
+  const [time, setTime] = useState('')
+
+  React.useEffect(() => {
+    setInterval(() => {
+      const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'long' }
+      setTime(new Date().toLocaleString('zh-CN', options))
+    }, 1000)
+  }, [])
 
   function inquireResult() {
     if (!name) {
@@ -37,16 +46,24 @@ export default function Home() {
     setInquireState(true)
   }
 
+  function CurrentTime() {
+    const now = new Date()
+    return `${now.getHours()}时${now.getMinutes()}分`
+  }
+
   return (
     <main className={clsx('w-11/12 mx-auto mt-20 flex justify-between pb-120')}>
       <div className={clsx('shadow-[0_10px_50px_rgba(0,0,0,.1)] w-3/5 p-30 rounded-2xl bg-[var(--my-box-bg)]')}>
         <h3 className={clsx('text-xl !font-bold')}>实时动态</h3>
-        <div className={clsx('mt-20 flex items-center')}>
+        <div className={clsx('mt-20 flex items-center justify-between')}>
           <div className={clsx('px-15 py-10 shadow-[0_10px_50px_rgba(0,0,0,.1)] w-max rounded-2xl')}>
             活动名额：200
           </div>
           <div className={clsx('px-15 py-10 shadow-[0_10px_50px_rgba(0,0,0,.1)] w-max rounded-2xl ml-20')}>
             已报名：199
+          </div>
+          <div className={clsx('px-15 py-10 shadow-[0_10px_50px_rgba(0,0,0,.1)] w-max rounded-2xl ml-20')}>
+            {time}
           </div>
         </div>
         <div className={clsx('flex justify-around items-center border border-[var(--my-border-color)] h-50 rounded-t mt-20 bg-[var(--my-box-bg)]')}>
@@ -100,10 +117,10 @@ export default function Home() {
                   <div className={clsx('mt-20')}>
                     <span className={clsx('font-bold')}>状态：</span>
                     <ul className={clsx('mt-5')}>
-                      <li>1.17时28分21秒，系统预审核通过</li>
-                      <li>2.17时28分34秒，教学部门通过</li>
-                      <li>3.17时28分38秒，学管部门通过</li>
-                      <li>3.17时28分38秒，学管部门通过</li>
+                      <li>1. {CurrentTime()}21秒，系统预审核通过</li>
+                      <li>2. {CurrentTime()}34秒，教学部门通过</li>
+                      <li>3. {CurrentTime()}38秒，学管部门通过</li>
+                      <li>4. {CurrentTime()}57秒，获得助学金名额</li>
                     </ul>
                   </div>
                   <Image
