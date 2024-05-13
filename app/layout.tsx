@@ -2,6 +2,8 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { Barlow } from 'next/font/google'
 
+import { Analytics } from '@vercel/analytics/react';
+
 import '~/styles/tailwind.scss'
 
 import { Providers } from '~/app/providers'
@@ -24,6 +26,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
           <Footer />
         </Providers>
+
+        <Analytics />
       </body>
     </html>
   )
