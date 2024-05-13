@@ -2,7 +2,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { Barlow } from 'next/font/google'
 
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react'
 
 import '~/styles/tailwind.scss'
 
