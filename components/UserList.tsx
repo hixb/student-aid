@@ -81,11 +81,8 @@ const UserList: React.FC = () => {
       '清妍', '诗悦', '嘉乐', '晨涵', '天赫', '玥傲', '佳昊', '天昊', '萌萌', '若萌',
     ]
 
-    const randomFamilyIndex = Math.floor(Math.random() * familyNames.length)
-    const randomGivenIndex = Math.floor(Math.random() * givenNames.length)
-
-    const familyName = familyNames[randomFamilyIndex]
-    const givenName = givenNames[randomGivenIndex]
+    const familyName = familyNames[Math.floor(Math.random() * familyNames.length)]
+    const givenName = givenNames[Math.floor(Math.random() * givenNames.length)]
 
     return familyName + givenName
   }

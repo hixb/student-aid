@@ -23,27 +23,27 @@ export default function Home() {
   }, [])
 
   function inquireResult() {
-    if (!name) {
-      alert('请输入姓名')
+    if (!validate(name, /^(?:[\u4E00-\u9FA5·]{2,16})$/, '请输入姓名', '姓名格式不正确'))
       return
-    }
 
-    if (!/^(?:[\u4E00-\u9FA5·]{2,16})$/.test(name)) {
-      alert('姓名格式不正确')
+    if (!validate(phone, /^(?:(?:\+|00)86)?1[3-9]\d{9}$/, '请输入手机号码', '手机号码格式不正确'))
       return
-    }
-
-    if (!phone) {
-      alert('请输入手机号码')
-      return
-    }
-
-    if (!/^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(phone)) {
-      alert('手机号码格式不正确')
-      return
-    }
 
     setInquireState(true)
+  }
+
+  function validate(input: string, regex: RegExp, emptyMessage: string, invalidMessage: string) {
+    if (!input) {
+      alert(emptyMessage)
+      return false
+    }
+
+    if (!regex.test(input)) {
+      alert(invalidMessage)
+      return false
+    }
+
+    return true
   }
 
   function CurrentTime() {
@@ -67,14 +67,14 @@ export default function Home() {
           </div>
         </div>
         <div className={clsx('flex justify-around items-center border border-[var(--my-border-color)] h-50 rounded-t mt-20 bg-[var(--my-box-bg)]')}>
-          <span className={clsx('inline-block text-center h-full truncate px-10 w-1/3 h-full')} style={{ lineHeight: '50px' }}>姓名</span>
+          <span className={clsx('inline-block text-center h-full truncate px-10 w-1/3')} style={{ lineHeight: '50px' }}>姓名</span>
           <span
-            className={clsx('inline-block text-center h-full truncate px-10 w-1/3 h-full border-x border-[var(--my-border-color)]')}
+            className={clsx('inline-block text-center h-full truncate px-10 w-1/3 border-x border-[var(--my-border-color)]')}
             style={{ lineHeight: '50px' }}
           >
             手机号码
           </span>
-          <span className={clsx('inline-block text-center h-full truncate px-10 w-1/3 h-full')} style={{ lineHeight: '50px' }}>审核状态</span>
+          <span className={clsx('inline-block text-center h-full truncate px-10 w-1/3')} style={{ lineHeight: '50px' }}>审核状态</span>
         </div>
         <UserList />
       </div>
@@ -112,7 +112,7 @@ export default function Home() {
               ? (
                 <>
                   <div className={clsx('mt-20')}>
-                    <span className={clsx('font-bold')}>编号：</span>QDKEV2024_51216222
+                    <span className={clsx('font-bold')}>编号：</span>QDKEV{(new Date()).getFullYear()}_51216222
                   </div>
                   <div className={clsx('mt-20')}>
                     <span className={clsx('font-bold')}>状态：</span>
