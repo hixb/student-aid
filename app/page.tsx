@@ -60,7 +60,7 @@ export default function Home() {
             活动名额：200
           </div>
           <div className={clsx('px-15 py-10 shadow-[0_10px_50px_rgba(0,0,0,.1)] w-max rounded-2xl ml-20')}>
-            已报名：199
+            已报名：196
           </div>
           <div className={clsx('px-15 py-10 shadow-[0_10px_50px_rgba(0,0,0,.1)] w-max rounded-2xl ml-20')}>
             {time}

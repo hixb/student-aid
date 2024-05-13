@@ -7,13 +7,12 @@ export default function Footer() {
     >
       <span />
       <div className="flex items-center">
-        <span>©</span>
         <bdi className="ml-1 flex items-center">
-          帆启（山东）教育科技有限公司
+          活动最终解释权归 帆启（山东）教育科技有限公司所有
         </bdi>
         <time className="opacity-80 ml-10">2022-{(new Date()).getFullYear()}</time>
       </div>
-      <span>活动所有</span>
+      <span />
     </footer>
   )
 }

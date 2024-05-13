@@ -8,7 +8,7 @@ import { Providers } from '~/app/providers'
 import Footer from '~/components/Footer'
 import Header from '~/components/Header'
 
-const barlow = Barlow({ weight: '100', subsets: ['latin'] })
+const barlow = Barlow({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: '帆启教育-助学金名额管理系统',
