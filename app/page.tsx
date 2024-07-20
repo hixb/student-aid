@@ -20,6 +20,10 @@ export default function Home() {
       const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'long' }
       setTime(new Date().toLocaleString('zh-CN', options))
     }, 1000)
+
+    fetch('/api/get-trainee')
+      .then(res => res.json())
+      .then(data => console.log(data))
   }, [])
 
   function inquireResult() {
